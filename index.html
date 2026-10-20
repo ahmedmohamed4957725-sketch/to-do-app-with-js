@@ -7,6 +7,32 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+    <div id="app">
+        <header id="hd">
+            <h1>To-Do List App</h1>
+        </header> 
+
+        <main id="main">
+            <section id="add_task_form">
+            <form id="addTaskForm">
+                <input type="text" id="task_title" placeholder="Title">
+                <input type="text" id="task_description" placeholder="Description">
+                <input type="datetime-local" id="taskDueDate" placeholder="Due Date">
+                <button type="submit" id="submit_button" >Add</button>
+            </form>
+            </section>
+            <section id="task_list">
+                <ul id="task_list_ul">                  
+                </ul>
+            </section>
+        </main>
+
+        <footer id="ft">
+            <p>&copy; 2023 To-Do List App. All rights reserved.</p>
+            
+        </footer>
+
+    </div>
     
     <script src="./js/script.js"></script>
 </body>

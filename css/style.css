@@ -1,3 +1,406 @@
-@import url("large.css");
-@import url("medium.css");
-@import url("small.css");
+
+/* =========================
+   1. Global Styles
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #6c63ff;
+    --primary-hover: #574fe8;
+    --background: #f5f6fc;
+    --surface: #ffffff;
+    --text: #20243a;
+    --text-muted: #777d91;
+    --border: #e5e7f0;
+    --success: #159d72;
+    --danger: #e34f64;
+    --warning: #f0a52b;
+    --shadow: 0 8px 25px rgba(35, 40, 80, 0.07);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+/* =========================
+   2. Main Layout
+========================= */
+
+#app {
+    width: min(100% - 40px, 1000px);
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+   3. Header
+========================= */
+
+#hd {
+    text-align: center;
+    padding: 45px 20px 30px;
+}
+
+#hd h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text);
+}
+
+#hd h1::after {
+    content: "";
+    display: block;
+    width: 65px;
+    height: 5px;
+    background: var(--primary);
+    border-radius: 10px;
+    margin: 12px auto 0;
+}
+
+/* =========================
+   4. Add Task Form
+========================= */
+
+#add_task_form {
+    background: var(--surface);
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    margin-bottom: 35px;
+}
+
+#addTaskForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+#addTaskForm input {
+    width: 100%;
+    min-width: 0;
+    padding: 13px 15px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fafaff;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#addTaskForm input::placeholder {
+    color: #999eb0;
+}
+
+#addTaskForm input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.12);
+    background: white;
+}
+
+#taskDueDate {
+    grid-column: 1 / -1;
+}
+
+#submit_button {
+    grid-column: 1 / -1;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 20px;
+    color: white;
+    background: var(--primary);
+    font-weight: 700;
+}
+
+#submit_button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(108, 99, 255, 0.25);
+}
+
+#submit_button:active {
+    transform: translateY(0);
+}
+
+/* =========================
+   5. Task List
+========================= */
+
+#task_list {
+    flex: 1;
+}
+
+#task_list_ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* =========================
+   6. Individual Task Card
+========================= */
+
+.task__item {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    padding-left: 76px;
+    box-shadow: var(--shadow);
+    animation: fadeIn 0.35s ease both;
+    overflow-wrap: anywhere;
+    transition: box-shadow 0.25s, transform 0.25s;
+}
+
+.task__item:hover {
+    box-shadow: 0 12px 30px rgba(35, 40, 80, 0.11);
+    transform: translateY(-2px);
+}
+
+/* Task Number */
+
+.task__item__num {
+    position: absolute;
+    left: 22px;
+    top: 24px;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    background: #eeecff;
+    color: var(--primary);
+    border-radius: 11px;
+    font-weight: 800;
+}
+
+/* Task Title */
+
+.task__item__title {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    color: var(--text);
+}
+
+/* Task Description */
+
+.task__item__desc {
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    overflow-wrap: anywhere;
+}
+
+/* Due Date */
+
+.task__item__dueDate {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+/* Status */
+
+.task__item__status {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--warning);
+    background: #fff4dc;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin: 5px 0 16px;
+}
+
+.completed {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--success);
+    background: #dcf8ec;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin: 5px 0 16px;
+}
+
+
+/* =========================
+   7. Task Buttons
+========================= */
+
+.task__item button {
+    border: none;
+    border-radius: 8px;
+    padding: 9px 14px;
+    margin: 4px 6px 0 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.task__item__com__btn {
+    color: #087c57;
+    background: #dcf8ec;
+}
+.completed {
+    color: #ad5418;
+    background: #0ed981;
+}
+
+
+
+.task__item__com__btn:hover {
+    background: #2e0691;
+}
+
+.task__item__del__btn {
+    color: #c83249;
+    background: #ffe7eb;
+}
+
+.task__item__del__btn:hover {
+    background: #ffd1d9;
+}
+
+.task__item__edit__btn {
+    color: #5549d9;
+    background: #eeecff;
+}
+
+.task__item__edit__btn:hover {
+    background: #dcd8ff;
+}
+.task__item {
+    background-color: white;
+    transition: background-color 0.3s ease;
+}
+
+.task__item.completed {
+    background-color: #dcf8ec;
+    border-color: #159d72;
+}
+
+
+
+/* =========================
+   8. Footer
+========================= */
+
+#ft {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 30px 10px;
+    margin-top: 25px;
+}
+
+/* =========================
+   9. Animations
+========================= */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   10. Responsive Design
+========================= */
+
+@media (max-width: 600px) {
+    #app {
+        width: min(100% - 24px, 1000px);
+    }
+
+    #hd {
+        padding: 30px 10px 24px;
+    }
+
+    #add_task_form {
+        padding: 18px;
+        border-radius: 14px;
+        margin-bottom: 24px;
+    }
+
+    #addTaskForm {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    #taskDueDate,
+    #submit_button {
+        grid-column: auto;
+    }
+
+    .task__item {
+        padding: 18px;
+        padding-left: 60px;
+        border-radius: 13px;
+    }
+
+    .task__item__num {
+        left: 14px;
+        top: 18px;
+        width: 32px;
+        height: 32px;
+    }
+
+    .task__item__title {
+        font-size: 1.05rem;
+    }
+
+    .task__item button {
+        padding: 9px 11px;
+        margin-right: 4px;
+        margin-top: 7px;
+    }
+
+    #ft {
+        padding: 24px 8px;
+    }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
