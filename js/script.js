@@ -22,8 +22,19 @@ const StorageTaskList = () => {
 }
 
 
-let TaskList = JSON.parse(
-    localStorage.getItem("TaskList") || []);
+let TaskList = [];
+
+try {
+    TaskList = JSON.parse(localStorage.getItem("TaskList") || "[]");
+
+    if (!Array.isArray(TaskList)) {
+        TaskList = [];
+    }
+
+} catch (error) {
+    console.error("Error loading tasks:", error);
+    TaskList = [];
+}
 
 //console.log(TaskList);
 
